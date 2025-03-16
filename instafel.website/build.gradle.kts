@@ -16,8 +16,8 @@ node {
     npmInstallCommand = "install"
 }
 
-tasks.register<NpmTask>("install") { 
-    println("Installing deps")
+tasks.register<NpmTask>("install-deps") { 
+    println("Installing dependencies")
     args.set(listOf("install"))
 
     doLast {
@@ -35,7 +35,8 @@ tasks.register<NpmTask>("lint") {
 }
 
 tasks.register<NpmTask>("build") {    
-    dependsOn("install")
+    dependsOn("clear-cache")
+    dependsOn("install-deps")
     args.set(listOf("run", "build"))
 }
 
